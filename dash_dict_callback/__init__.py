@@ -89,7 +89,6 @@ class DashDictCallbackPlugin():
         allow_missing = _kwargs.pop('allow_missing', True)
         prevent_initial_call = _kwargs.pop('prevent_initial_call', False)
         _args=self.normalize(_args)
-
         return partial(self.decorator, app, allow_missing, strict, prevent_initial_call, _args, _kwargs)
 
     def decorator(self, app, allow_missing, strict, pic, _args, _kwargs, func):
