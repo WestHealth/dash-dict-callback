@@ -169,6 +169,18 @@ def display_output(inputs, states):
     return output
 ```
 
+### Useful pattern if only one state or one input is given
+
+For simpler callbacks, the typing out of dictionary keys might be cumbersome. You can access a single input or single state using the following pattern
+
+```
+def callback(inputs, states):
+	single_input = next(iter(inputs.values()))
+	single_state = next(iter(states.values()))
+```
+
+But please note this only works if there is only one input or one state. If this is a useful feature, I can add a method.
+
 ## Unlocking Modular Programming Patterns
 
 TBD WORK IN PROGRESS
@@ -178,3 +190,5 @@ The callback structure introduces many constraints. Fortunately, `Dash` has reso
 The example above shows two filter sets applied to two graphical units. In the ideal, you would want four callbacks with distinct
 
 ## Guide to Examples
+
+See the README file in the Examples directory

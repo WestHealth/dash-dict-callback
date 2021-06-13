@@ -4,7 +4,7 @@ from types import MethodType
 from collections.abc import Iterable
 from dash.dependencies import Output, Input, State
 
-class DashDictCallbackPlugin():
+class _DashDictCallbackPlugin():
     class callback_dict(dict):
         """
         This class is a convenience class to work with dict_callback. It extends the
@@ -87,12 +87,13 @@ class DashDictCallbackPlugin():
         # Pull new options out of the keyword arguments
         strict = _kwargs.pop('strict', False)
         allow_missing = _kwargs.pop('allow_missing', True)
-        prevent_initial_call = _kwargs.pop('prevent_initial_call', False)
+        prevent_initial_call = _kwargs.pop('prevent_initial_call', None)
         _args=self.normalize(_args)
+        
         return partial(self.decorator, app, allow_missing, strict, prevent_initial_call, _args, _kwargs)
 
     def decorator(self, app, allow_missing, strict, pic, _args, _kwargs, func):
-        return app.callback(*_args, prevent_inital_call=pic, **_kwargs)(self.dictionaryize(allow_missing, strict, func))
+        return app.callback(*_args, prevent_initial_call=pic, **_kwargs)(self.dictionaryize(allow_missing, strict, func))
 
     def dictionaryize(self, allow_missing, strict, func):
 
@@ -212,3 +213,5 @@ def dictionary(args=None, strict=False, allow_missing=True):
         return DashCallbackPlugin().dictionaryize(allow_missing, strict, args)
     return partial(DashCallbackPlugin().dictionaryize, allow_missing, strict)
 
+# Since we always use the instantiation. Let's instantiate it
+DashDictCallbackPlugin = _DashDictCallbackPlugin()
