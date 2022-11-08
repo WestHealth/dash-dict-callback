@@ -3,6 +3,7 @@ from functools import wraps, partial
 from types import MethodType
 from collections.abc import Iterable
 from dash.dependencies import Output, Input, State
+from dash.exceptions import PreventUpdate
 
 class _DashDictCallbackPlugin():
     class callback_dict(dict):
