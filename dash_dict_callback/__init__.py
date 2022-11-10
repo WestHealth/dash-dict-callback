@@ -168,6 +168,8 @@ class _DashDictCallbackPlugin():
 
                 if output_dict == dash.no_update:
                     raise PreventUpdate
+                if output_dict == None:
+                    output_dict = {}
 
                 output_value = from_dict(output_dict, ctx.outputs_list)
                 if strict:
